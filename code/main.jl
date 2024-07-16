@@ -8,7 +8,7 @@ include("utils_oth.jl")
 # Install packages using packages.jl if missing packages
 
 #######################################################
-# Run simulations
+# Parameters
 #######################################################
 
 # Set seed
@@ -25,33 +25,31 @@ n1, n2, n3 = n_vec
 opts = ["inc", "dec", "con"]
 run_sim_again_flag = true
 
-# Initialize folders to save output (overwrites existing folder)
+# Folder paths
 outfolder = "output"
-isdir(outfolder) && rm(outfolder; recursive=true)
 simfolder = "$outfolder/sims"
-mkpath(simfolder)
 
-# Save parameters to a file with timestamp
-timestamp = Dates.format(now(), "yyyy-mm-dd HH.MM.SS")
-open("$outfolder/simdetails.txt", "w") do io
-    println(io, "Timestamp: $timestamp")
-    println(io, "Number of iterations: $iters")
-    println(io, "T_bar: $T_bar")
-    println(io, "π: $p")
-    println(io, "ϕ: $ϕ")
-    println(io, "ν parameters: $ν_pars")
-    println(io, "Sample sizes: $n_vec")
-    println(io, "Options: $opts")
-end
-
+#######################################################
 # Run simulations and save output
+#######################################################
+
 if run_sim_again_flag
+
+    # Overwrite existing folders
+    isdir(outfolder) && rm(outfolder; recursive=true)
+    mkpath(simfolder)
+
+    # Save simulation details
+    save_simdetails(outfolder, iters, T_bar, p, ϕ, ν_pars, n_vec, opts)
+
+    # Run simulations
     for opt in opts
         for n in n_vec
             println("Running simulations for $opt with n=$n")
             run_sim(iters, n, T_bar, p, ϕ, ν_pars, opt, simfolder)
         end
     end
+
 end
 
 #######################################################

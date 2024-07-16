@@ -80,3 +80,21 @@ function concat_save(df1, df2, df3, names, filepath)
 end
 
 #######################################################
+# Save simulation parameters to a file
+#######################################################
+
+function save_simdetails(folder, iters, T_bar, p, ϕ, ν_pars, n_vec, opts)
+    timestamp = Dates.format(now(), "yyyy-mm-dd HH.MM.SS")
+    open("$folder/simdetails.txt", "w") do io
+        println(io, "Timestamp: $timestamp")
+        println(io, "Number of iterations: $iters")
+        println(io, "T_bar: $T_bar")
+        println(io, "π: $p")
+        println(io, "ϕ: $ϕ")
+        println(io, "ν parameters: $ν_pars")
+        println(io, "Sample sizes: $n_vec")
+        println(io, "Options: $opts")
+    end
+end
+
+#######################################################

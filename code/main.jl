@@ -15,7 +15,7 @@ include("utils_oth.jl")
 Random.seed!(1117)
 
 # Parameters
-iters = 2
+iters = 5000
 T_bar = 6
 p = 0.5
 ϕ = [1, 2]

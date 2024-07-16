@@ -8,4 +8,4 @@ cd DiscreteMPH
 make
 ```
 
-The `make` command will install the necessary packages, execute the code, and compile the document `draft/figures_and_tables.pdf`, which contains the final output for the paper. The code also creates a new folder, `output`, which will contain the plots and tables included in the final document, and all simulation results will be saved in `output/sims`.
+The `make` command will install the necessary packages, execute the code, and compile the document `draft/figures_and_tables.tex`, which contains the final output for the paper. The code also creates a new folder, `output`, which will contain the plots and tables included in the final document, and all simulation results will be saved in `output/sims`.

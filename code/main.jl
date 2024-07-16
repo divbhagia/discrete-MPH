@@ -116,19 +116,19 @@ end
 # Plot for increasing hazard
 plot_inc = plot(plots["inc-n$n1"], plots["inc-n$n2"], plots["inc-n$n3"],
                 layout=(1, 3), size=(250, 70), margin=-1.5mm,
-                ylim=(0.275, 0.525), yticks=0:0.1:1)
+                ylim=(0.225, 0.635), yticks=0:0.1:1)
 savefig(plot_inc, "$outfolder/plot_inc.pdf")
 
 # Plot for decreasing hazard
 plot_dec = plot(plots["dec-n$n1"], plots["dec-n$n2"], plots["dec-n$n3"],
                 layout=(1, 3), size=(250, 70), margin=-1.5mm, 
-                ylim=(0.25, 0.5), yticks=0:0.1:1)
+                ylim=(0.215, 0.5), yticks=0:0.1:1)
 savefig(plot_dec, "$outfolder/plot_dec.pdf")
 
 # Plot for constant hazard
 plot_con = plot(plots["con-n$n1"], plots["con-n$n2"], plots["con-n$n3"],
                 layout=(1, 3), size=(250, 70), margin=-1.5mm, 
-                ylim=(0.24, 0.41), yticks=0:0.05:1)
+                ylim=(0.17, 0.5), yticks=0:0.1:1)
 savefig(plot_con, "$outfolder/plot_con.pdf")
 
 # Save legend separately
@@ -140,6 +140,5 @@ leg = plot((1:2)', framestyle=:none,
         margins = -2mm,
         legend = :top,  size=(250, 20))
 savefig(leg, "$outfolder/plot_legend.pdf")
-
 
 #######################################################

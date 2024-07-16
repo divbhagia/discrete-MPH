@@ -3,13 +3,15 @@ using JLD2
 include("utils_sim.jl")
 include("utils_est.jl")
 
+#### Code to test functions
+
 # Set seed
 Random.seed!(1117)
 
 # Parameters
 n = 5000000
 p = 0.5
-T_bar = 4
+T_bar = 6
 ϕ = [1, 2]
 ν_pars = [2, 2]
 opt = "inc"
@@ -28,7 +30,7 @@ g = sim_data(n, T_bar, p, ϕ, ν_pars, opt)
 # Check error in model vs data moments
 println("Model vs data moments: ", sum((g - g_model).^2))
 
-# Estimate parameters
+# Estimate parameters when true moments given
 Θ_hat = gmm(g_model, nrm)
 
 # Print error in estimation

@@ -69,10 +69,10 @@ end
 function gmm(g, nrm, bounds = false, usegrad = true)
 
     # Initial guess
-    T, J = size(g)
-    num_vars = 2T + J - 2
+    T_bar, J = size(g)
+    num_vars = 2T_bar + J - 2
     x0 = 0.5 * ones(num_vars)
-    x0[end-2:end] .= 1.5
+    x0[T_bar+2:end] .= 1.5
 
     # Optimization options
     options = Optim.Options(g_tol = 1e-32, iterations = 100000,
@@ -96,7 +96,7 @@ function gmm(g, nrm, bounds = false, usegrad = true)
     # Run optimization with bounds
     if bounds == true
         lb = zeros(num_vars)
-        lb[end-2:end] .= 1
+        lb[T_bar+2:end] .= 1
         ub = fill(Inf, num_vars)
         if usegrad
             result = optimize(obj_fun, grad_fun!, lb, ub, x0, 

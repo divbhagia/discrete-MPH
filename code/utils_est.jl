@@ -66,7 +66,7 @@ end
 # GMM estimation
 ##########################################################
 
-function gmm(g, nrm, bounds = false, usegrad = true)
+function gmm(g, nrm, bounds = true, usegrad = false)
 
     # Initial guess
     T_bar, J = size(g)

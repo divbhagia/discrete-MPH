@@ -1,0 +1,86 @@
+\documentclass[letter]{article}
+
+% Packages
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+% Locals
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcommand{\outdir}{./../output}
+\newcommand{\Ni}{5000}
+\newcommand{\Nii}{25000}
+\newcommand{\Niii}{100000}
+
+% Margins
+\usepackage[margin=2cm]{geometry}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Simulation Results Figure                          
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[p]\caption{Finite Sample Performance: Baseline Hazard}\label{fig:sims_haz}
+\footnotesize \centering
+\vspace{1em}
+\textbf{Panel A: Decreasing Hazard} \\ \vspace{1em}
+\includegraphics{\outdir/plot_dec.pdf} \\ \vspace{1em}
+\textbf{Panel B: Constant Hazard} \\ \vspace{1em}
+\includegraphics{\outdir/plot_con.pdf} \\ \vspace{1em}
+\textbf{Panel C: Increasing Hazard} \\ \vspace{1em}
+\includegraphics{\outdir/plot_inc.pdf} \\ 
+\includegraphics{\outdir/plot_legend.pdf}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Simulation Results Table                          
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table*}
+\caption{Finite Sample Performance of the Estimator}\label{tab:sims}
+
+% Decreasing hazard
+\begin{tabularx}{\textwidth}{cc*{3}{Y}c*{3}{Y}c*{3}{Y}}
+\toprule \addlinespace[0.5em]
+\multicolumn{13}{c}{\small 
+ \textbf{Panel A: Decreasing Hazard}} \\ \addlinespace[0.25em]
+\cmidrule{3-13} 
+& & \multicolumn{3}{c}{\(n=\Ni\)} & & \multicolumn{3}{c}{\(n=\Nii\)} & & \multicolumn{3}{c}{\(n=\Niii\)} \\ 
+ \cmidrule{3-5} \cmidrule{7-9} \cmidrule{11-13}
+Parameter & & Bias & SD & RMSE &  & Bias & SD & RMSE &  & Bias & SD & RMSE \\
+\midrule 
+\input{\outdir/tab_dec}
+\end{tabularx}
+
+% Constant hazard 
+\begin{tabularx}{\textwidth}{cc*{3}{Y}c*{3}{Y}c*{3}{Y}}
+\midrule \addlinespace[0.5em]
+\multicolumn{13}{c}{\small 
+ \textbf{Panel B: Constant Hazard}} \\ \addlinespace[0.25em]
+\cmidrule{3-13} 
+& & \multicolumn{3}{c}{\(n=\Ni\)} & & \multicolumn{3}{c}{\(n=\Nii\)} & & \multicolumn{3}{c}{\(n=\Niii\)} \\ 
+ \cmidrule{3-5} \cmidrule{7-9} \cmidrule{11-13}
+Parameter & & Bias & SD & RMSE &  & Bias & SD & RMSE &  & Bias & SD & RMSE \\
+\midrule
+\input{\outdir/tab_con}
+\end{tabularx}
+
+% Increasing hazard
+\begin{tabularx}{\textwidth}{cc*{3}{Y}c*{3}{Y}c*{3}{Y}}
+\midrule \addlinespace[0.5em]
+\multicolumn{13}{c}{\small 
+ \textbf{Panel C: Increasing Hazard}} \\ \addlinespace[0.25em]
+\cmidrule{3-13} 
+& & \multicolumn{3}{c}{\(n=\Ni\)} & & \multicolumn{3}{c}{\(n=\Nii\)} & & \multicolumn{3}{c}{\(n=\Niii\)} \\ 
+ \cmidrule{3-5} \cmidrule{7-9} \cmidrule{11-13}
+Parameter & & Bias & SD & RMSE &  & Bias & SD & RMSE &  & Bias & SD & RMSE \\
+%\midrule
+\input{\outdir/tab_inc}
+\bottomrule
+\end{tabularx}
+\end{table*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}

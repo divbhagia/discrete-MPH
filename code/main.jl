@@ -1,6 +1,6 @@
 using Random, Distributions, Optim
 using DataFrames, Latexify
-using JLD2, Dates, Plots, Measures
+using JLD2, Dates, Plots, Measures, Printf
 include("utils_sim.jl")
 include("utils_est.jl")
 include("utils_oth.jl")
@@ -58,11 +58,14 @@ end
 
 # Pull saved output to a dictionary
 restabs = Dict()
+times = Dict()
 for opt in opts
     for n in n_vec
         key = "$(opt)-n$n"
         resfile = jldopen("$simfolder/$key-res.jld", "r")
         restabs["$key"] = read.(Ref(resfile), keys(resfile))[1]
+        timefile = jldopen("$simfolder/$key-times.jld", "r")
+        times["$key"] = read.(Ref(timefile), keys(timefile))[1]
     end
 end
 
@@ -81,6 +84,16 @@ for opt in opts
                     restabs["$(opt)-n$n2"], 
                     restabs["$(opt)-n$n3"], 
                     names, "$outfolder/tab_$(opt).tex")
+end
+
+# Create tables for computation times
+for opt in opts
+    file = open("$outfolder/tab_$(opt)_times.tex", "w")
+    t1 = round(times["$(opt)-n$n1"], digits=2)
+    t2 = round(times["$(opt)-n$n2"], digits=2)
+    t3 = round(times["$(opt)-n$n3"], digits=2)
+    write(file, "\\multicolumn{1}{l}{Compute time} & & \\multicolumn{3}{c}{$t1} & & \\multicolumn{3}{c}{$t2} & & \\multicolumn{3}{c}{$t3} \\\\ \n")
+    close(file)
 end
 
 #######################################################

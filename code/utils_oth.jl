@@ -29,16 +29,22 @@ function run_sim(iters, n, T_bar, p, ϕ, ν_pars, opt, folder)
 
     # Run siμlations and save thta_hats to file
     Θ_hats = zeros(length(Θ), iters)
+    times = zeros(iters)
     for i in 1:iters
         if i % 20 == 0
             println(100 * i / iters, "% simulations done")
         end
         g = sim_data(n, T_bar, p, ϕ, ν_pars, opt)
+        start_time = time()
         Θ_hats[:, i] = gmm(g, nrm)
+        times[i] = time() - start_time 
     end
     @save "$folder/$(opt)-n$n-ests.jld" Θ_hats 
 
-    
+    # Store average time taken
+    avg_time = mean(times)
+    @save "$folder/$(opt)-n$n-times.jld" avg_time
+
     # Bias, St.Dev, RMSE in a dataframe for all parameters
     bias = mean(Θ_hats, dims=2) .- Θ
     stdev = std(Θ_hats, dims=2)

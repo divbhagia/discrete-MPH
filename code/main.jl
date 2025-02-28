@@ -92,7 +92,7 @@ for opt in opts
     t1 = round(times["$(opt)-n$n1"], digits=2)
     t2 = round(times["$(opt)-n$n2"], digits=2)
     t3 = round(times["$(opt)-n$n3"], digits=2)
-    write(file, "\\multicolumn{1}{l}{Compute time} & & \\multicolumn{3}{c}{$t1} & & \\multicolumn{3}{c}{$t2} & & \\multicolumn{3}{c}{$t3} \\\\ \n")
+    write(file, "\\multicolumn{1}{l}{\\markup{Compute time}} & & \\multicolumn{3}{c}{\\markup{$t1}} & & \\multicolumn{3}{c}{\\markup{$t2}} & & \\multicolumn{3}{c}{\\markup{$t3}} \\\\ \n")
     close(file)
 end
 

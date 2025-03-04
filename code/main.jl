@@ -4,6 +4,7 @@ using JLD2, Dates, Plots, Measures, Printf
 include("utils_sim.jl")
 include("utils_est.jl")
 include("utils_oth.jl")
+pythonplot()
 
 # Install packages using packages.jl if missing packages
 
@@ -112,46 +113,56 @@ for opt in opts
     end
 end
 
+# Set default font size 
+plot_font = "DejaVu Sans"
+default(fontfamily = plot_font,
+        grid = true,
+        gridcolor = :lightgrey,
+        gridalpha = 0.5,
+        titlefontsize=7,
+        guidefontsize=7,
+        tickfontsize=6,
+        legendfontsize=7,
+        dpi=1000)
+
 # Create and store all plots in a dictionary
 plots = Dict()
 for opt in opts
     for n in n_vec
         key = "$(opt)-n$n"
         λ_i, λ̂_i, σ_i = λ[opt], λ̂[key], σ[key]
-        plots[key] = plot(λ̂_i, ribbon=1.96*σ_i, color="#A6A29D")
+        plots[key] = plot(λ̂_i, ribbon=1.96*σ_i, color="#d6d4d4")
         plot!(plots[key], λ̂_i, color=:black, linewidth=1.25)
         plot!(plots[key], λ_i, color=:red, linewidth=1.25, linestyle=:dot)
-        plot!(plots[key], title="n=$n", titlefontsize=5, legend=false)
-        plot!(plots[key], xtickfontsize=4, ytickfontsize=4)
+        plot!(plots[key], title="n=$n", legend=false)
     end
 end
 
 # Plot for increasing hazard
 plot_inc = plot(plots["inc-n$n1"], plots["inc-n$n2"], plots["inc-n$n3"],
-                layout=(1, 3), size=(250, 70), margin=-1.5mm,
-                ylim=(0.125, 0.8), yticks=0:0.1:1)
-savefig(plot_inc, "$outfolder/plot_inc.pdf")
+                layout=(1, 3), size=(300, 90), margin=0.5cm,
+                ylim=(0.125, 0.8), yticks=0:0.2:1)
+savefig(plot_inc, "$outfolder/plot_inc.eps")
 
 # Plot for decreasing hazard
 plot_dec = plot(plots["dec-n$n1"], plots["dec-n$n2"], plots["dec-n$n3"],
-                layout=(1, 3), size=(250, 70), margin=-1.5mm, 
+                layout=(1, 3), size=(300, 90), margin=0.5cm, 
                 ylim=(0.125, 0.55), yticks=0:0.1:1)
-savefig(plot_dec, "$outfolder/plot_dec.pdf")
+savefig(plot_dec, "$outfolder/plot_dec.eps")
 
 # Plot for constant hazard
 plot_con = plot(plots["con-n$n1"], plots["con-n$n2"], plots["con-n$n3"],
-                layout=(1, 3), size=(250, 70), margin=-1.5mm, 
+                layout=(1, 3), size=(300, 90), margin=0.5cm, 
                 ylim=(0.15, 0.55), yticks=0:0.1:1)
-savefig(plot_con, "$outfolder/plot_con.pdf")
+savefig(plot_con, "$outfolder/plot_con.eps")
 
 # Save legend separately
 leg = plot((1:2)', framestyle=:none, 
         legend_column=2, color = [:black :red],
-        linestyle = [:solid :dot], linewidth=1.5,
-        labels=[" Estimate   " " True"], legendfontsize=5,
+        linestyle = [:solid :dot], linewidth=2,
+        labels=[" Estimate   " " True"],
         fg_legend = :transparent, 
-        margins = -2mm,
-        legend = :top,  size=(250, 20))
-savefig(leg, "$outfolder/plot_legend.pdf")
+        legend = :top,  size=(300, 30))
+savefig(leg, "$outfolder/plot_legend.eps")
 
 #######################################################

@@ -9,7 +9,8 @@ dependencies = [
     "JLD2",
     "Dates",
     "Plots",
-    "Measures"
+    "Measures",
+    "PythonPlot",
 ]
 
 Pkg.add(dependencies)
